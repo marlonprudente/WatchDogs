@@ -3,7 +3,7 @@ import re
 import os
 import time
 
-WORDS = ["LIGAR", "DESLIGAR"]
+WORDS = ["DELAY", "SOCORRO"]
 PRIORITY = 20
 
 def handle(text, mic, profile):
@@ -11,15 +11,15 @@ def handle(text, mic, profile):
 
 	cmd = 'sudo python /home/pi/Sensores.py'
 	
-  	if bool(re.search(r'\b(LIGAR|\sLIGAR\s.*alarme)\b', text, re.IGNORECASE)):
-		mic.say('Alarmes Ligados')
+	if bool(re.search(r'\b(DELAY?|\sDELAY?\s.*delay)\b', text, re.IGNORECASE)):
+		mic.say('Alarmes Ligados em 10 min')
+		time.sleep(10)
 		os.system(cmd+" switch on")
-
-   	elif bool(re.search(r'\b(DESLIGAR?|\sOFF?\s.*desligar)\b', text, re.IGNORECASE)):
-    	mic.say('Alarmes Desligados')
-       	os.system(cmd+" switch off")
 		
-    mic.say('DONE... ')
+	elif bool(re.search(r'\b(SOCORRO?|\sHELP?\s.*socorro)\b', text, re.IGNORECASE)):
+		mic.say('light now is blinking 5 times')
+		os.system(cmd+" blink 5 1")
+    	mic.say('DONE... ')
    
    except:
 	print "Lighting Error"
