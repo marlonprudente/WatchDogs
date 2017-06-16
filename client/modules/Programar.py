@@ -4,10 +4,12 @@ import os
 import time
 
 WORDS = ["DELAY", "SOCORRO"]
-PRIORITY = 20
+#PRIORITY = 19
 
 def handle(text, mic, profile):
-   try:		        
+   try:	
+
+	print(text)	        
 
 	cmd = 'sudo python /home/pi/Sensores.py'
 	
@@ -33,6 +35,6 @@ def isValid(text):
         text -- user-input, typically transcribed speech
     """
 
-    if bool(re.search(r'\b(ligar|desligar?|\soff?\s.*light|\son\s.*light|blinking|light blinking|blinking\s.*light)\b', text, re.IGNORECASE)):
+    if bool(re.search(r'\b(delay|socorro?|\sdelei?\s.*socorro|\sdelay\s.*delay)\b', text, re.IGNORECASE)):
     	return True
-return False
+    return False

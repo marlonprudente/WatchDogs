@@ -64,9 +64,13 @@ class Brain(object):
         Arguments:
         text -- user input, typically speech, to be parsed by a module
         """
+
+	print(texts)
+
         for module in self.modules:
             for text in texts:
                 if module.isValid(text):
+		    print("É valido")
                     self._logger.debug("'%s' is a valid phrase for module " +
                                        "'%s'", text, module.__name__)
                     try:

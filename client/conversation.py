@@ -39,7 +39,13 @@ class Conversation(object):
 
             self._logger.debug("Started to listen actively with threshold: %r",
                                threshold)
+
+	    print("Threshold:",threshold)
+
             input = self.mic.activeListenToAllOptions(threshold)
+
+	    print("Input:",input)
+
             self._logger.debug("Stopped to listen actively with threshold: %r",
                                threshold)
 
