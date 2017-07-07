@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python2x
 # -*- coding: utf-8-*-
 
 import os
@@ -16,11 +16,6 @@ from client import diagnose
 from client.conversation import Conversation
 
 from multiprocessing import Process
-import MySQLdb
-import time
-
-con = MySQLdb.connect('127.0.0.1', 'root', 'watchdogs')
-con.select_db('wdp')
 
 # Add jasperpath.LIB_PATH to sys.path
 sys.path.append(jasperpath.LIB_PATH)
@@ -124,22 +119,10 @@ class Jasper(object):
             salutation = "How can I be of service?"
         self.mic.say(salutation)
 
-        conversation = Conversation("CASA", self.mic, self.config)
+        conversation = Conversation("WATCH DOGS", self.mic, self.config)
         conversation.handleForever()
 def alarme():
    os.system("sudo python /home/pi/watchdogs/Alarme.py")
-
-def delay():
-   while True:
-      sql = con.cursor()
-      sql.execute('SELECT status FROM sensors')
-      con.commit()
-      for row in sql.fetchall():
-         if (int(row[0])==3):
-            time.sleep(10)
-            sql.execute('UPDATE sensors SET status=1 WHERE status=3')
-            con.commit()
-      
 
 if __name__ == "__main__":
 
@@ -166,7 +149,6 @@ if __name__ == "__main__":
     try:
         app = Jasper()
         Process(target=alarme).start()
-        Process(target=delay).start()
     except Exception:
         logger.error("Error occured!", exc_info=True)
         sys.exit(1)
